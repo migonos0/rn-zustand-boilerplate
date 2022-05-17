@@ -1,13 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * Generated with the TypeScript template
- * https://github.com/react-native-community/react-native-template-typescript
- *
- * @format
- */
-
 import React, {useState} from 'react';
 import {
   Button,
@@ -18,13 +8,15 @@ import {
 } from 'react-native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {createTestActionHandler} from './src/services/store/actions/test.action';
+import {
+  getTestDispatcher,
+  testStateSelector,
+} from './src/services/store/slices/test.slice';
 import {useStore} from './src/services/store/useStore';
-
-const testDispatcher = useStore.getState().testDispatcher;
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
-  const {message} = useStore(state => state.testState);
+  const {message} = useStore(testStateSelector);
   const [localMessage, setLocalMessage] = useState('');
 
   const backgroundStyle = {
@@ -42,7 +34,7 @@ const App = () => {
       <Button
         title="Hola"
         onPress={() => {
-          createTestActionHandler()(testDispatcher)(localMessage);
+          createTestActionHandler()(getTestDispatcher(useStore))(localMessage);
         }}
       />
     </SafeAreaView>

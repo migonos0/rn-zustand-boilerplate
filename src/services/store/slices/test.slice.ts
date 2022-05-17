@@ -3,6 +3,8 @@ import {Reducer} from '../../../types/Reducer.type';
 import {GlobalState} from '../useStore';
 import {Action} from '../../../types/Action.type';
 import {Test} from '../actiontypes/Test.actiontype';
+import {DispatcherGetter} from '../../../types/DispatcherGetter.type';
+import {StateSelector} from '../../../types/StateSelector.type';
 
 const initialState = {
   message: 'SuperHi',
@@ -42,3 +44,8 @@ export const createTestSlice: CreateSlice<GlobalState, TestSlice> = (
       }),
   };
 };
+
+export const getTestDispatcher: DispatcherGetter<Test, SliceState> = useStore =>
+  useStore.getState().testDispatcher;
+export const testStateSelector: StateSelector<SliceState> = state =>
+  state.testState;
